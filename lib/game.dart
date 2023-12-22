@@ -52,25 +52,25 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
       for (var x = 0; x < row.length; x++) {
         final char = row[x];
-        if (x > firstWallIndex && x < lastWallIndex) renderFloor(x.toDouble(), y.toDouble());
-        if (_spriteMap.containsKey(char)) renderBackGround(_spriteMap[char], x.toDouble(), y.toDouble());
+        if (x > firstWallIndex && x < lastWallIndex)
+          renderFloor(x.toDouble(), y.toDouble());
+        if (_spriteMap.containsKey(char))
+          renderBackGround(_spriteMap[char], x.toDouble(), y.toDouble());
         if (char == 'p') initPlayer(x.toDouble(), y.toDouble());
         if (char == 'o') initCrate(x.toDouble(), y.toDouble());
       }
     }
 
     add(_player);
-    for(var crate in _crateList) {
+    for (var crate in _crateList) {
       add(crate);
     }
 
     if (pushGame.state.width > playerCameraWallWidth) {
       camera.followComponent(_player);
     } else {
-      camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
-      // final component = _bgComponentList.first;
-      // camera.followComponent(component);
-      // camera.setRelativeOffset(Anchor.center);
+      camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2,
+          pushGame.state.height * oneBlockSize / 2));
     }
   }
 
@@ -175,7 +175,8 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void createMove() {
-    final targetCrate = _crateList.firstWhere((crate) => crate.coordinate == pushGame.state.crateMoveBeforeVec);
+    final targetCrate = _crateList.firstWhere(
+        (crate) => crate.coordinate == pushGame.state.crateMoveBeforeVec);
     targetCrate.move(pushGame.state.crateMoveAfterVec);
     targetCrate.goalCheck(pushGame.state.goalVecList);
   }

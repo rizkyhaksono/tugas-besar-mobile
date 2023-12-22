@@ -19,13 +19,12 @@ class MainGamePageState extends State<MainGamePage> {
     game.setCallback(_changeState);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          GameWidget(game: game),
-          Congratulations(isClear: _isClear),
-        ],
-      )
-    );
+        body: Stack(
+      children: [
+        GameWidget(game: game),
+        Congratulations(isClear: _isClear),
+      ],
+    ));
   }
 
   void _changeState(state) {
@@ -43,8 +42,7 @@ class Congratulations extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: const Alignment(0, -0.6),
-      child:
-      Visibility(
+      child: Visibility(
         visible: isClear,
         child: Image.asset('assets/images/congratulations.png'),
       ),
