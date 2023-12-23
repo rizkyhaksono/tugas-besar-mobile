@@ -70,6 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '46223375187',
     projectId: 'uap-project-94203',
     storageBucket: 'uap-project-94203.appspot.com',
+    androidClientId: '46223375187-2lbka44nd4ao7at4vidchkjiacn09jgd.apps.googleusercontent.com',
+    iosClientId: '46223375187-4grf7bdmjvp17isiuiq7bc3sq86i9hg3.apps.googleusercontent.com',
     iosBundleId: 'com.example.pushPuzzle.RunnerTests',
   );
 }

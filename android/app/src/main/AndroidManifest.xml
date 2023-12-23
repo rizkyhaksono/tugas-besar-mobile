@@ -29,5 +29,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- <meta-data
+            android:name="com.google.android.gms.auth.api.identity.fido2.api.RP_CONFIG"
+            android:resource="@string/config_rp_plain_json"/> -->
     </application>
 </manifest>

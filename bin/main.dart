@@ -1,5 +1,4 @@
 import 'package:dart_console/dart_console.dart';
-import 'package:push_puzzle/src/push_game.dart';
 
 void main(List<String> arguments) async {
   final console = Console();

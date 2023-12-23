@@ -16,8 +16,8 @@ class Crate extends SpriteAnimationComponent with HasGameRef {
 
   Crate()
       : super(
-    size: Vector2.all(oneBlockSize),
-  );
+          size: Vector2.all(oneBlockSize),
+        );
 
   @override
   Future<void> onLoad() async {
@@ -32,10 +32,8 @@ class Crate extends SpriteAnimationComponent with HasGameRef {
       srcSize: Vector2.all(oneBlockSize),
     );
 
-    _noAnimation =
-        spriteSheet.createAnimation(row: 0, stepTime: 1, to: 1);
-    _goalAnimation =
-        spriteSheet.createAnimation(row: 0, stepTime: 0.4, to: 2);
+    _noAnimation = spriteSheet.createAnimation(row: 0, stepTime: 1, to: 1);
+    _goalAnimation = spriteSheet.createAnimation(row: 0, stepTime: 0.4, to: 2);
   }
 
   void setPosition(Vector2 vec) {

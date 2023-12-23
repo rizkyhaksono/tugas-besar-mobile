@@ -9,25 +9,55 @@ class SignInView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            TextField(
+              controller: signInController.emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                hintText: 'Enter your email',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: signInController.passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                hintText: 'Enter your password',
+              ),
+            ),
+            const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // Show email/password sign-in form
-              },
-              child: Text('Sign In with Email/Password'),
+              onPressed: signInController.signInWithEmailAndPassword,
+              child: const Text('Sign In'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 await signInController.signInWithGoogle();
               },
-              child: Text('Sign In with Google'),
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/google-icon.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
