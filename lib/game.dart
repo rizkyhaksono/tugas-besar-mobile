@@ -10,8 +10,8 @@ import 'components/crate.dart';
 import 'dart:async';
 
 import 'src/push_game.dart';
-import 'utility/config.dart';
-import 'utility/direction.dart';
+import 'utils/config.dart';
+import 'utils/direction.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Function stateCallbackHandler;

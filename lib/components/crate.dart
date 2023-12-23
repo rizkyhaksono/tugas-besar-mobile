@@ -2,8 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/effects.dart';
 
-import '../utility/config.dart';
-import '../utility/custom_effects.dart';
+import '../utils/config.dart';
+import '../utils/custom_effects.dart';
 
 class Crate extends SpriteAnimationComponent with HasGameRef {
   // int _moveCount = 0;

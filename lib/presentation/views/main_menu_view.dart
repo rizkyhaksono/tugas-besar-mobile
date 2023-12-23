@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:push_puzzle/utils/resources.dart';
-import 'main_game_page.dart';
+import 'package:get/get.dart';
+import 'package:push_puzzle/constants/resources.dart';
+import '../../main_game_page.dart';
 
-class MainMenuPage extends StatelessWidget {
-  const MainMenuPage({super.key});
+class MainMenuView extends GetView {
+  const MainMenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class MainMenuPage extends StatelessWidget {
       backgroundColor: Resources.color.primaryBg,
       appBar: AppBar(
         backgroundColor: Resources.color.primaryBg,
+        automaticallyImplyLeading: false,
         title: Text(
           'Push Crate Man',
           style: TextStyle(

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flame/components.dart';
 
-import '../utility/object_enum.dart';
-import '../utility/stage_master_data.dart';
-import '../utility/direction.dart';
+import '../utils/object_enum.dart';
+import '../utils/stage_master_data.dart';
+import '../utils/direction.dart';
 
 class StageState {
   late int width;

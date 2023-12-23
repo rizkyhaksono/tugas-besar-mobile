@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 
-import '../utility/config.dart';
-import '../utility/direction.dart';
+import '../utils/config.dart';
+import '../utils/direction.dart';
 
 class Player extends SpriteAnimationComponent with HasGameRef {
   final double _animationSpeed = 0.15;

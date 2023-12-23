@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:push_puzzle/main_menu_page.dart';
+import 'package:get/get.dart';
+import 'package:push_puzzle/routes/page_names.dart';
+import 'package:push_puzzle/routes/page_routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,10 +13,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Push Crate Man',
-      home: MainMenuPage(),
+      initialRoute: PageName.splash,
+      getPages: PageRoutes.pages,
     );
   }
 }
