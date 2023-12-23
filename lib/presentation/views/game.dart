@@ -4,14 +4,14 @@ import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-import 'components/player.dart';
-import 'components/crate.dart';
+import '../../components/player.dart';
+import '../../components/crate.dart';
 
 import 'dart:async';
 
-import 'src/push_game.dart';
-import 'utils/config.dart';
-import 'utils/direction.dart';
+import '../../src/push_game.dart';
+import '../../utils/config.dart';
+import '../../utils/direction.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Function stateCallbackHandler;

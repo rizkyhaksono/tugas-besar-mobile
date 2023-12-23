@@ -3,14 +3,14 @@ import 'package:flame/game.dart';
 
 import 'game.dart';
 
-class MainGamePage extends StatefulWidget {
-  const MainGamePage({Key? key}) : super(key: key);
+class MainGameView extends StatefulWidget {
+  const MainGameView({Key? key}) : super(key: key);
 
   @override
-  MainGamePageState createState() => MainGamePageState();
+  MainGameViewState createState() => MainGameViewState();
 }
 
-class MainGamePageState extends State<MainGamePage> {
+class MainGameViewState extends State<MainGameView> {
   MainGame game = MainGame();
   bool _isClear = false;
 

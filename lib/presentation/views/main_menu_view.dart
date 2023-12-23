@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
-import '../../main_game_page.dart';
+import 'main_game_view.dart';
 
 class MainMenuView extends GetView {
   const MainMenuView({super.key});
@@ -32,7 +32,7 @@ class MainMenuView extends GetView {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MainGamePage(),
+                    builder: (context) => const MainGameView(),
                   ),
                 );
               },
