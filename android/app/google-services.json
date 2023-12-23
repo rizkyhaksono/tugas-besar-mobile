@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46223375187",
+    "project_id": "uap-project-94203",
+    "storage_bucket": "uap-project-94203.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46223375187:android:488c3269ec4f583d1e3fa6",
+        "android_client_info": {
+          "package_name": "com.example.push_puzzle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjpoZ5B7Kvpb5jKajnVSgvyLaWDLsCqU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
