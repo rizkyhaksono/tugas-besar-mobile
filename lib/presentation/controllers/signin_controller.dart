@@ -19,7 +19,7 @@ class SignInController extends GetxController {
       isLoading.value = false;
 
       if (user != null) {
-        // Navigate to the next screen or perform other actions
+        Get.offAllNamed("/menu");
       } else {
         Get.dialog(
           AlertDialog(
@@ -46,7 +46,7 @@ class SignInController extends GetxController {
       isLoading.value = true;
       final userCredential = await _authService.signInWithGoogle();
       if (userCredential != null) {
-        // Successful sign-in, perform actions like navigation or user feedback
+        Get.offAllNamed("/menu");
         print(
             'User signed in with Google: ${userCredential.user?.displayName}');
       } else {

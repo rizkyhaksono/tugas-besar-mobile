@@ -4,13 +4,24 @@ import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/signin_controller.dart';
 
 class SignInView extends GetView {
+  SignInView({super.key});
+
   final SignInController signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Resources.color.primaryBg,
-      appBar: AppBar(backgroundColor: Resources.color.primaryBg),
+      appBar: AppBar(
+        title: Text(
+          'Sign In',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Resources.color.primaryBg,
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -63,6 +74,18 @@ class SignInView extends GetView {
                 prefixIcon: Icon(
                   Icons.lock,
                   color: Resources.color.crateBox,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                Get.toNamed("/signup");
+              },
+              child: Text(
+                "Don't have account? Sign up here!",
+                style: TextStyle(
+                  color: Colors.white,
                 ),
               ),
             ),

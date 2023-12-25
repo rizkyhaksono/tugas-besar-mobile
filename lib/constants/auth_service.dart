@@ -7,6 +7,25 @@ class AuthService {
 
   User? get currentUser => _auth.currentUser;
 
+  Future<User?> getCurrentUser() async {
+    return _auth.currentUser;
+  }
+
+  Future<UserCredential?> signUpWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } catch (e) {
+      print("Error creating account: $e");
+      return null;
+    }
+  }
+
   Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     try {
