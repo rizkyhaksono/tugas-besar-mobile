@@ -22,10 +22,24 @@ class SignUpView extends GetView<SignUpController> {
               decoration: InputDecoration(labelText: 'Email'),
             ),
             SizedBox(height: 16.0),
-            TextField(
-              controller: controller.passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
+            Obx(
+              () => TextField(
+                controller: controller.passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      controller.togglePasswordVisibility();
+                    },
+                    child: Icon(
+                      controller.obscurePassword.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  ),
+                ),
+                obscureText: controller.obscurePassword.value,
+              ),
             ),
             SizedBox(height: 16.0),
             TextButton(

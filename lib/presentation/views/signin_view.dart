@@ -53,27 +53,40 @@ class SignInView extends GetView {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: signInController.passwordController,
-              obscureText: true,
-              cursorColor: Resources.color.crateBox,
-              style: TextStyle(color: Resources.color.crateBox),
-              decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle:
-                    TextStyle(color: Resources.color.crateBox, fontSize: 20),
-                hintText: 'Enter your password',
-                hintStyle:
-                    TextStyle(color: Resources.color.crateBox.withOpacity(0.6)),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Resources.color.crateBox),
-                ),
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: Resources.color.crateBox,
+            Obx(
+              () => TextField(
+                controller: signInController.passwordController,
+                obscureText: signInController.obscurePassword.value,
+                cursorColor: Resources.color.crateBox,
+                style: TextStyle(color: Resources.color.crateBox),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  labelStyle:
+                      TextStyle(color: Resources.color.crateBox, fontSize: 20),
+                  hintText: 'Enter your password',
+                  hintStyle: TextStyle(
+                      color: Resources.color.crateBox.withOpacity(0.6)),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Resources.color.crateBox),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Resources.color.crateBox,
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      signInController.togglePasswordVisibility();
+                    },
+                    child: Icon(
+                      signInController.obscurePassword.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Resources.color.crateBox,
+                    ),
+                  ),
                 ),
               ),
             ),

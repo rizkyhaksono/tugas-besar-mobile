@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flame/components.dart';
+import 'package:get/get.dart';
 
 import '../utils/object_enum.dart';
 import '../utils/stage_master_data.dart';
@@ -22,7 +23,14 @@ class StageState {
   }
 
   void changeStage(int stage) {
-    dataList = LineSplitter.split(stageMasterDataList[stage - 1]).toList();
+    if (stage - 1 < stageMasterDataList.length) {
+      dataList = LineSplitter.split(stageMasterDataList[stage - 1]).toList();
+      print("game started");
+    } else {
+      Get.offAllNamed("/signin");
+      print("game over");
+    }
+
     width = dataList.first.length;
     height = dataList.length;
     objectList = initStageState;
@@ -58,18 +66,28 @@ class StageState {
       objectList[targetPosition] == Object.crate ||
       objectList[targetPosition] == Object.crateOnGoal;
 
-  bool isWorldOut(tx, ty) =>
-      tx < 0 || ty < 0 || tx >= width || ty >= height;
+  bool isWorldOut(tx, ty) => tx < 0 || ty < 0 || tx >= width || ty >= height;
 
   bool isSpaceOrGoal(int targetPosition) =>
       objectList[targetPosition] == Object.space ||
       objectList[targetPosition] == Object.goal;
 
-  bool get isClear => objectList.indexWhere((obj) => obj == Object.crate) == -1;
+  // bool get isClear => objectList.indexWhere((obj) => obj == Object.crate) == -1;
 
-  Vector2 get playerVecPos => Vector2((playerIndex % width).toDouble(), (playerIndex ~/ width).toDouble());
+  bool get isClear {
+    for (var crateIndex in crateIndexList) {
+      if (objectList[crateIndex] != Object.crateOnGoal) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-  Vector2 getVecPos(int index) => Vector2((index % width).toDouble(), (index ~/ width).toDouble());
+  Vector2 get playerVecPos => Vector2(
+      (playerIndex % width).toDouble(), (playerIndex ~/ width).toDouble());
+
+  Vector2 getVecPos(int index) =>
+      Vector2((index % width).toDouble(), (index ~/ width).toDouble());
 
   List<int> get crateIndexList {
     List<int> indices = [];

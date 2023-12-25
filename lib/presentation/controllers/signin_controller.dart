@@ -5,9 +5,13 @@ import 'package:push_puzzle/constants/auth_service.dart';
 class SignInController extends GetxController {
   final AuthService _authService = AuthService();
   final RxBool isLoading = false.obs;
-
+  final RxBool obscurePassword = true.obs;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void togglePasswordVisibility() {
+    obscurePassword.toggle();
+  }
 
   Future<void> signInWithEmailAndPassword() async {
     try {

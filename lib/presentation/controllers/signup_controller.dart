@@ -4,8 +4,13 @@ import 'package:push_puzzle/constants/auth_service.dart';
 
 class SignUpController extends GetxController {
   final AuthService _authService = AuthService();
+  final RxBool obscurePassword = true.obs;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void togglePasswordVisibility() {
+    obscurePassword.toggle();
+  }
 
   Future<void> signUp() async {
     final email = emailController.text.trim();
