@@ -21,20 +21,7 @@ class SignInController extends GetxController {
       if (user != null) {
         Get.offAllNamed("/menu");
       } else {
-        Get.dialog(
-          AlertDialog(
-            title: Text('Sign In Failed'),
-            content: Text('Invalid email or password. Please try again.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.back(); // Close the alert
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
+        Get.snackbar('Error', 'Email and password is not correct!');
       }
     } finally {
       isLoading.value = false;

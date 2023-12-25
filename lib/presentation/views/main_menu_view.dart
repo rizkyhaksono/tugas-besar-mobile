@@ -81,10 +81,8 @@ class UserCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        // Fetch the current user
         User? currentUser = await _authService.getCurrentUser();
 
-        // Show the modal bottom sheet
         Get.bottomSheet(
           Container(
             color: Colors.white,
@@ -94,7 +92,7 @@ class UserCircleAvatar extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
-                    'Username: ${currentUser?.displayName ?? "N/A"}',
+                    'Username: ${getUserDisplayName(currentUser)}',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -105,11 +103,7 @@ class UserCircleAvatar extends StatelessWidget {
                     style: TextStyle(fontSize: 18, color: Colors.red),
                   ),
                   onTap: () async {
-                    // Logout logic
                     await _authService.signOut();
-
-                    // Close the bottom sheet
-                    Get.back();
                   },
                 ),
               ],
@@ -126,5 +120,20 @@ class UserCircleAvatar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getUserDisplayName(User? user) {
+    if (user != null) {
+      if (user.providerData.isNotEmpty) {
+        if (user.providerData[0].providerId == 'google.com') {
+          // User signed in with Google
+          return user.displayName ?? 'N/A';
+        } else {
+          // User signed in with email/password
+          return user.email?.split('@')[0] ?? 'N/A';
+        }
+      }
+    }
+    return 'N/A';
   }
 }
