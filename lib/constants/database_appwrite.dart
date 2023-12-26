@@ -23,14 +23,14 @@ class DatabaseAppwrite extends ClientAppwrite {
         collectionId: "658ad88bdfd5b0356272",
         data: map,
         permissions: [
-          Permission.read(Role.user("658ad9a992f068430f2a")),
-          Permission.update(Role.user("658ad9a992f068430f2a")),
-          Permission.delete(Role.user("658ad9a992f068430f2a")),
+          // Permission.read(Role.user("658ad9a992f068430f2a")),
+          // Permission.update(Role.user("658ad9a992f068430f2a")),
+          // Permission.delete(Role.user("658ad9a992f068430f2a")),
 
           // config role any
-          // Permission.read(Role.any()),
-          // Permission.update(Role.any()),
-          // Permission.delete(Role.any()),
+          Permission.read(Role.any()),
+          Permission.update(Role.any()),
+          Permission.delete(Role.any()),
         ],
       );
       print("DatabaseController:: storeUserName $result");
