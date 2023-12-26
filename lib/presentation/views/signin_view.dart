@@ -16,7 +16,7 @@ class SignInView extends GetView<SignInController> {
             'Let us sign you in!',
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
               fontFamily: Resources.font.primaryFont,
               fontSize: 24,
             ),
@@ -141,7 +141,7 @@ class SignInView extends GetView<SignInController> {
                     fontFamily: Resources.font.primaryFont,
                     color: Resources.color.crateBox,
                     fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

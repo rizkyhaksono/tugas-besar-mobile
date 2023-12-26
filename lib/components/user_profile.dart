@@ -16,29 +16,35 @@ class UserProfile extends StatelessWidget {
         User? currentUser = await _authService.getCurrentUser();
 
         Get.bottomSheet(
-          Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildHeader(currentUser),
-                  const SizedBox(height: 1),
-                  _buildListItem(
-                    Icons.person,
-                    'Username: ${getUserDisplayName(currentUser)}',
-                  ),
-                  _buildListItem(
-                    Icons.exit_to_app,
-                    'Logout',
-                    textColor: Colors.red,
-                    onTap: () async {
-                      await _authService.signOut();
-                    },
-                  ),
-                ],
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildHeader(currentUser),
+                    const SizedBox(height: 1),
+                    _buildListItem(
+                      Icons.person,
+                      getUserDisplayName(currentUser),
+                    ),
+                    _buildListItem(
+                      Icons.exit_to_app,
+                      'Logout',
+                      textColor: Colors.red,
+                      onTap: () async {
+                        await _authService.signOut();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -72,7 +78,7 @@ class UserProfile extends StatelessWidget {
           'Hello, ${getUserDisplayName(currentUser)}!',
           style: TextStyle(
             fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             fontFamily: Resources.font.primaryFont,
           ),
         ),
@@ -93,7 +99,7 @@ class UserProfile extends StatelessWidget {
       title: Text(
         text,
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 15,
           color: textColor,
           fontFamily: Resources.font.primaryFont,
         ),

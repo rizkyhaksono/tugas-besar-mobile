@@ -5,5 +5,6 @@ class NewsBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => NewsController());
+    Get.put(() => NewsController());
   }
 }

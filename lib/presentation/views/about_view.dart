@@ -32,24 +32,48 @@ class AboutView extends GetView {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                final webViewController = WebViewController()
-                  ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                  ..setBackgroundColor(const Color(0x00000000))
-                  ..loadRequest(Uri.parse(
-                      'https://github.com/rizkyhaksono/tugas-besar-mobile'));
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    final webViewController = WebViewController()
+                      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                      ..setBackgroundColor(const Color(0x00000000))
+                      ..loadRequest(Uri.parse(
+                          'https://github.com/rizkyhaksono/tugas-besar-mobile'));
 
-                Get.to(() => WebViewPage(webView: webViewController));
-              },
-              child: const Text('Visit Website'),
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                print("test");
-              },
-              child: const Text('Contact Us'),
+                    Get.to(() => WebViewPage(webView: webViewController));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Resources.color.primaryBg,
+                  ),
+                  child: Text(
+                    'Visit Website',
+                    style: TextStyle(
+                      fontFamily: Resources.font.primaryFont,
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    print("test");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Resources.color.primaryBg,
+                  ),
+                  child: Text(
+                    'Contact Us',
+                    style: TextStyle(
+                      fontFamily: Resources.font.primaryFont,
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),

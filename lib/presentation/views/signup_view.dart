@@ -16,7 +16,7 @@ class SignUpView extends GetView<SignUpController> {
             'Join Us!',
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
               fontFamily: Resources.font.primaryFont,
               fontSize: 24,
             ),
@@ -140,7 +140,7 @@ class SignUpView extends GetView<SignUpController> {
                     fontFamily: Resources.font.primaryFont,
                     color: Resources.color.crateBox,
                     fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

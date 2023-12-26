@@ -74,7 +74,7 @@ class MainMenuView extends GetView<MenuController> {
               width: Get.width / 2,
               child: ElevatedButton(
                 onPressed: () {
-                  SystemNavigator.pop();
+                  _showExitConfirmationDialog();
                 },
                 child: Text(
                   'Exit',
@@ -89,6 +89,54 @@ class MainMenuView extends GetView<MenuController> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showExitConfirmationDialog() {
+    showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Exit Confirmation',
+            style: TextStyle(
+              fontFamily: Resources.font.primaryFont,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          content: Text(
+            'Are you sure you want to exit?',
+            style: TextStyle(
+              fontFamily: Resources.font.primaryFont,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  fontFamily: Resources.font.primaryFont,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: Text(
+                'Exit',
+                style: TextStyle(
+                  fontFamily: Resources.font.primaryFont,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

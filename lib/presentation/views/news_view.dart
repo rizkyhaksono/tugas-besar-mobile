@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/news_controller.dart';
 
 class NewsView extends GetView<NewsController> {
@@ -9,7 +10,17 @@ class NewsView extends GetView<NewsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News'),
+        title: Text(
+          'News',
+          style: TextStyle(
+            fontFamily: Resources.font.primaryFont,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Resources.color.primaryBg,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: Obx(
         () => controller.isLoading
