@@ -6,7 +6,6 @@ import '../utils/config.dart';
 import '../utils/custom_effects.dart';
 
 class Crate extends SpriteAnimationComponent with HasGameRef {
-  // int _moveCount = 0;
   late Vector2 coordinate;
   bool isGoal = false;
 
@@ -52,12 +51,6 @@ class Crate extends SpriteAnimationComponent with HasGameRef {
   void goalCheck(List<Vector2> vacList) {
     isGoal = vacList.any((vec) => coordinate == vec);
 
-    // if (isGoal && !_goalEffect.isMounted) {
-    //   add(_goalEffect);
-    // } else if(!isGoal && _goalEffect.isMounted) {
-    //   _goalEffect.apply(0);
-    //   _goalEffect.removeFromParent();
-    // }
     if (isGoal) {
       animation = _goalAnimation;
     } else {

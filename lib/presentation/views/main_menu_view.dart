@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:push_puzzle/components/dot_menu.dart';
 import 'package:push_puzzle/components/user_profile.dart';
 import 'package:push_puzzle/constants/resources.dart';
 import 'main_game_view.dart';
@@ -16,17 +17,19 @@ class MainMenuView extends GetView<MenuController> {
         backgroundColor: Resources.color.primaryBg,
         automaticallyImplyLeading: false,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             UserProfile(),
-            const SizedBox(width: 8),
             Text(
               'Push Crate Man',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 fontFamily: Resources.font.primaryFont,
                 color: Colors.white,
+                fontSize: 20,
               ),
             ),
+            const TripleDotPopupMenu(),
           ],
         ),
       ),
@@ -68,7 +71,7 @@ class MainMenuView extends GetView<MenuController> {
             ),
             ElevatedButton(
               onPressed: () async {
-                // controller.playMusic();
+                print("audio");
                 // Get.to(AudioPlayerUrl());
               },
               child: Text("Click me"),

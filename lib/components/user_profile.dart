@@ -6,6 +6,8 @@ import 'package:push_puzzle/constants/auth_service.dart';
 class UserProfile extends StatelessWidget {
   final AuthService _authService = AuthService();
 
+  UserProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,12 +24,12 @@ class UserProfile extends StatelessWidget {
                 ListTile(
                   title: Text(
                     'Username: ${getUserDisplayName(currentUser)}',
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
-                Divider(height: 1, color: Colors.grey),
+                const Divider(height: 1, color: Colors.grey),
                 ListTile(
-                  title: Text(
+                  title: const Text(
                     'Logout',
                     style: TextStyle(fontSize: 18, color: Colors.red),
                   ),
@@ -55,10 +57,8 @@ class UserProfile extends StatelessWidget {
     if (user != null) {
       if (user.providerData.isNotEmpty) {
         if (user.providerData[0].providerId == 'google.com') {
-          // User signed in with Google
           return user.displayName ?? 'N/A';
         } else {
-          // User signed in with email/password
           return user.email?.split('@')[0] ?? 'N/A';
         }
       }
