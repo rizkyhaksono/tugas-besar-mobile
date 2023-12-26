@@ -13,17 +13,16 @@ class TripleDotPopupMenu extends StatelessWidget {
       itemBuilder: (BuildContext context) {
         return [
           const PopupMenuItem(
-            value: 'option1',
-            child: Text('Option 1'),
+            value: 'credit',
+            child: Text('Credit'),
           ),
           const PopupMenuItem(
-            value: 'option2',
-            child: Text('Option 2'),
+            value: 'events',
+            child: Text('Events'),
           ),
         ];
       },
       onSelected: (value) {
-        // Handle the selected option
         print('Selected: $value');
       },
     );

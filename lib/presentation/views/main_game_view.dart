@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:get/get.dart';
+import 'package:push_puzzle/constants/resources.dart';
 
 import 'game.dart';
 
@@ -31,13 +32,17 @@ class MainGameViewState extends State<MainGameView> {
 
   Widget buildPauseButton() {
     return Positioned(
-      top: 16,
-      right: 16,
+      top: 40,
+      right: 20,
       child: ElevatedButton(
         onPressed: () {
           showPauseModal();
         },
-        child: Text('Pause Game'),
+        child: Icon(
+          Icons.menu,
+          color: Resources.color.crateBox,
+          size: 20,
+        ),
       ),
     );
   }

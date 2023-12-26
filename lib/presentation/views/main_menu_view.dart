@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:push_puzzle/components/dot_menu.dart';
 import 'package:push_puzzle/components/user_profile.dart';
 import 'package:push_puzzle/constants/resources.dart';
-import 'main_game_view.dart';
 
 class MainMenuView extends GetView<MenuController> {
   const MainMenuView({super.key});
@@ -37,45 +36,56 @@ class MainMenuView extends GetView<MenuController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MainGameView(),
+            SizedBox(
+              width: Get.width / 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.offNamed("/game");
+                },
+                child: Text(
+                  'Start Game',
+                  style: TextStyle(
+                    color: Resources.color.crateBox,
+                    fontFamily: Resources.font.primaryFont,
+                    fontSize: 18,
                   ),
-                );
-              },
-              child: Text(
-                'Start Game',
-                style: TextStyle(
-                  color: Resources.color.crateBox,
-                  fontFamily: Resources.font.primaryFont,
-                  fontSize: 18,
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
-              child: Text(
-                'Exit',
-                style: TextStyle(
-                  color: Resources.color.crateBox,
-                  fontFamily: Resources.font.primaryFont,
-                  fontSize: 18,
+            const SizedBox(height: 10),
+            SizedBox(
+              width: Get.width / 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  print("news");
+                },
+                child: Text(
+                  'News',
+                  style: TextStyle(
+                    color: Resources.color.crateBox,
+                    fontFamily: Resources.font.primaryFont,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                print("audio");
-                // Get.to(AudioPlayerUrl());
-              },
-              child: Text("Click me"),
-            )
+            const SizedBox(height: 10),
+            SizedBox(
+              width: Get.width / 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
+                child: Text(
+                  'Exit',
+                  style: TextStyle(
+                    color: Resources.color.crateBox,
+                    fontFamily: Resources.font.primaryFont,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
