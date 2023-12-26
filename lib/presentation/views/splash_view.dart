@@ -12,6 +12,12 @@ class SplashView extends GetView<SplashController> {
     'Enjoy Using the App\nImmerse yourself in a seamless and delightful puzzle-solving experience. From novices to experts, everyone can savor the joy of accomplishment.',
   ];
 
+  final List<String> imagesAssets = [
+    "assets/images/splash1.png",
+    "assets/images/splash2.png",
+    "assets/images/splash3.png"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +34,7 @@ class SplashView extends GetView<SplashController> {
                   itemCount: splashData.length,
                   itemBuilder: (context, index) => SplashContent(
                     text: splashData[index],
+                    imagePath: imagesAssets[index],
                   ),
                 ),
               ),
@@ -81,11 +88,13 @@ class SplashView extends GetView<SplashController> {
 
 class SplashContent extends StatelessWidget {
   final String text;
+  final String imagePath;
 
-  const SplashContent({super.key, required this.text});
+  const SplashContent({super.key, required this.text, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
+    print('Image Path: $imagePath');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -94,7 +103,8 @@ class SplashContent extends StatelessWidget {
           'Puzzle Push Crate',
           style: TextStyle(
             fontSize: 36,
-            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontWeight: FontWeight.w900,
             fontFamily: Resources.font.primaryFont,
           ),
         ),
@@ -104,8 +114,19 @@ class SplashContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,
+            color: Colors.white,
             fontWeight: FontWeight.normal,
             fontFamily: Resources.font.primaryFont,
+          ),
+        ),
+        const SizedBox(height: 5),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Image.asset(
+            imagePath,
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
           ),
         ),
         const Spacer(),
