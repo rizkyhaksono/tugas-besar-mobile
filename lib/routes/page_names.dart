@@ -7,6 +7,7 @@ class PageName {
 
   static const dashboard = "/dashboard";
   static const game = "/game";
+  static const news = "/news";
 
   static const endGame = "/end_game";
 }

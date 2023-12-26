@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:push_puzzle/presentation/bndings/news_binding.dart';
 import 'package:push_puzzle/presentation/bndings/signin_binding.dart';
 import 'package:push_puzzle/presentation/bndings/signup_binding.dart';
 import 'package:push_puzzle/presentation/bndings/splash_binding.dart';
 import 'package:push_puzzle/presentation/views/main_game_view.dart';
 import 'package:push_puzzle/presentation/views/main_menu_view.dart';
+import 'package:push_puzzle/presentation/views/news_view.dart';
 import 'package:push_puzzle/presentation/views/signin_view.dart';
 import 'package:push_puzzle/presentation/views/signup_view.dart';
 import 'package:push_puzzle/presentation/views/splash_view.dart';
@@ -35,6 +37,13 @@ class PageRoutes {
     GetPage(
       name: PageName.menu,
       page: () => MainMenuView(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: PageName.news,
+      page: () => NewsView(),
+      binding: NewsBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),

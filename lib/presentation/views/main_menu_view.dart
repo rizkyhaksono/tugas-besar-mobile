@@ -57,7 +57,7 @@ class MainMenuView extends GetView<MenuController> {
               width: Get.width / 2,
               child: ElevatedButton(
                 onPressed: () {
-                  print("news");
+                  Get.toNamed("/news");
                 },
                 child: Text(
                   'News',
