@@ -67,9 +67,7 @@ class AboutView extends GetView {
                   child: SizedBox(
                     width: Get.width,
                     child: ElevatedButton(
-                      onPressed: () {
-                        print("test");
-                      },
+                      onPressed: () => Get.toNamed("/contact"),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Resources.color.primaryBg,
                       ),

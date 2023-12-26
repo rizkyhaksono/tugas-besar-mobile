@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/client_appwrite.dart';

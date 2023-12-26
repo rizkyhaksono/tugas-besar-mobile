@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInController extends GetxController {
   final AuthService _authService = AuthService();
@@ -8,6 +9,18 @@ class SignInController extends GetxController {
   final RxBool obscurePassword = true.obs;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  late SharedPreferences _preferences;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    _preferences = await SharedPreferences.getInstance();
+    // Check if the user is already logged in
+    bool isLoggedIn = _preferences.getBool('isLoggedIn') ?? false;
+    if (isLoggedIn) {
+      Get.offAllNamed("/menu");
+    }
+  }
 
   void togglePasswordVisibility() {
     obscurePassword.toggle();
@@ -23,6 +36,7 @@ class SignInController extends GetxController {
       isLoading.value = false;
 
       if (user != null) {
+        _preferences.setBool('isLoggedIn', true);
         Get.offAllNamed("/menu");
         Get.snackbar(
           'Success',
@@ -83,6 +97,7 @@ class SignInController extends GetxController {
 
   Future<void> signOut() async {
     await _authService.signOut();
+    _preferences.setBool('isLoggedIn', false);
     Get.offAllNamed("/signin");
   }
 }
