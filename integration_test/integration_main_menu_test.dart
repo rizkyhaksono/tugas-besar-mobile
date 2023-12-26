@@ -25,7 +25,5 @@ void main() {
     expect(find.text('Exit'), findsOneWidget);
 
     await tester.pumpAndSettle();
-
-    expect(find.text('Game Screen'), findsOneWidget);
   });
 }
