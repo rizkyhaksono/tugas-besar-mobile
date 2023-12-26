@@ -11,12 +11,13 @@ class SignInView extends GetView<SignInController> {
     return Scaffold(
       backgroundColor: Resources.color.primaryBg,
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
             'Let us sign you in!',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
+              fontFamily: Resources.font.primaryFont,
               fontSize: 24,
             ),
           ),

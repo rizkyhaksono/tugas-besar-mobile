@@ -6,9 +6,9 @@ class CreditView extends StatelessWidget {
 
   final List<Contributor> contributors = [
     Contributor("Muhammad Rizky Haksono", "202110370311325"),
-    Contributor("Rafli Kharisma Akbar", "jane@example.com"),
+    Contributor("Rafli Kharisma Akbar", "202110370311402"),
     Contributor("Geraldi Nathan Tommy Saputra", "bob@example.com"),
-    Contributor("Alviya Laela", "bob@example.com"),
+    Contributor("Alviya Laela", "202110370311400"),
   ];
 
   @override

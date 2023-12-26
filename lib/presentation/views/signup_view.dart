@@ -11,12 +11,13 @@ class SignUpView extends GetView<SignUpController> {
     return Scaffold(
       backgroundColor: Resources.color.primaryBg,
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
             'Join Us!',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
+              fontFamily: Resources.font.primaryFont,
               fontSize: 24,
             ),
           ),
