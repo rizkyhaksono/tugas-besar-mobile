@@ -27,21 +27,18 @@ class SignInController extends GetxController {
         Get.snackbar(
           'Success',
           'Login successful!',
-          backgroundColor:
-              Colors.green, // Customize the background color for success
-          colorText: Colors.white, // Customize the text color
-          duration: Duration(seconds: 3), // Specify the duration
-          snackPosition:
-              SnackPosition.BOTTOM, // Position the snack bar at the bottom
-          margin: EdgeInsets.all(16.0), // Add some margin for better spacing
-          borderRadius: 8.0, // Apply border radius for rounded corners
-          isDismissible:
-              true, // Allow dismissing by tapping outside the snack bar
-          icon: const Icon(Icons.check_circle,
-              color: Colors.white),
-          shouldIconPulse: true, 
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 3),
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(16.0),
+          borderRadius: 8.0,
+          isDismissible: true,
+          icon: const Icon(Icons.check_circle, color: Colors.white),
+          shouldIconPulse: true,
           mainButton: TextButton(
             onPressed: () {
+              Get.back();
               print("test");
             },
             child: const Text(

@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
-  @override
-  void onReady() {
-    super.onReady();
+  var currentPage = 0.obs;
+  PageController pageController = PageController();
 
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      Get.offNamed("/signin");
+  @override
+  void onInit() {
+    super.onInit();
+    pageController.addListener(() {
+      currentPage.value = pageController.page!.round();
     });
   }
 }

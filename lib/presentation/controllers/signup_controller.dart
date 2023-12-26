@@ -17,7 +17,17 @@ class SignUpController extends GetxController {
     final password = passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar('Error', 'Please enter both email and password');
+      Get.snackbar(
+        'Error',
+        'Email and password is empty!',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(16.0),
+        borderRadius: 8.0,
+        isDismissible: true,
+      );
       return;
     }
 
@@ -25,8 +35,41 @@ class SignUpController extends GetxController {
 
     if (user != null) {
       Get.toNamed('/sigin');
+      Get.snackbar(
+        'Success',
+        'Login successful!',
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(16.0),
+        borderRadius: 8.0,
+        isDismissible: true,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        shouldIconPulse: true,
+        mainButton: TextButton(
+          onPressed: () {
+            Get.back();
+            print("test");
+          },
+          child: const Text(
+            'OK',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      );
     } else {
-      Get.snackbar('Error', 'Failed to sign up');
+      Get.snackbar(
+        'Error',
+        'Email and password are not correct!',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(16.0),
+        borderRadius: 8.0,
+        isDismissible: true,
+      );
     }
   }
 }
