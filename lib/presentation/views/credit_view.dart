@@ -7,7 +7,7 @@ class CreditView extends StatelessWidget {
   final List<Contributor> contributors = [
     Contributor("Muhammad Rizky Haksono", "202110370311325"),
     Contributor("Rafli Kharisma Akbar", "202110370311402"),
-    Contributor("Geraldi Nathan Tommy Saputra", "bob@example.com"),
+    Contributor("Geraldi Nathan Tommy Saputra", "202110370311351"),
     Contributor("Alviya Laela", "202110370311400"),
   ];
 

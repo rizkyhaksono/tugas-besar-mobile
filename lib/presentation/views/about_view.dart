@@ -35,41 +35,52 @@ class AboutView extends GetView {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    final webViewController = WebViewController()
-                      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                      ..setBackgroundColor(const Color(0x00000000))
-                      ..loadRequest(Uri.parse(
-                          'https://github.com/rizkyhaksono/tugas-besar-mobile'));
+                Flexible(
+                  child: SizedBox(
+                    width: Get.width,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final webViewController = WebViewController()
+                          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                          ..setBackgroundColor(const Color(0x00000000))
+                          ..loadRequest(Uri.parse(
+                              'https://github.com/rizkyhaksono/tugas-besar-mobile'));
 
-                    Get.to(() => WebViewPage(webView: webViewController));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Resources.color.primaryBg,
-                  ),
-                  child: Text(
-                    'Visit Website',
-                    style: TextStyle(
-                      fontFamily: Resources.font.primaryFont,
-                      color: Colors.white,
-                      fontSize: 14,
+                        Get.to(() => WebViewPage(webView: webViewController));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Resources.color.primaryBg,
+                      ),
+                      child: Text(
+                        'Github Repository',
+                        style: TextStyle(
+                          fontFamily: Resources.font.primaryFont,
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    print("test");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Resources.color.primaryBg,
-                  ),
-                  child: Text(
-                    'Contact Us',
-                    style: TextStyle(
-                      fontFamily: Resources.font.primaryFont,
-                      color: Colors.white,
-                      fontSize: 14,
+                const SizedBox(width: 10),
+                Flexible(
+                  child: SizedBox(
+                    width: Get.width,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print("test");
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Resources.color.primaryBg,
+                      ),
+                      child: Text(
+                        'Contact Us',
+                        style: TextStyle(
+                          fontFamily: Resources.font.primaryFont,
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
                 )
@@ -92,11 +103,17 @@ class WebViewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Website',
+          'Repository',
           style: TextStyle(
             color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
             fontFamily: Resources.font.primaryFont,
           ),
+        ),
+        backgroundColor: Resources.color.primaryBg,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
       ),
       body: WebViewWidget(
