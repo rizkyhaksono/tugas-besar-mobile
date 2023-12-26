@@ -4,19 +4,7 @@ import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
-  SplashView({Key? key}) : super(key: key);
-
-  final List<String> splashData = [
-    'Welcome to Puzzle App\nEmbark on a journey of mind-bending challenges and immersive fun. Unleash your inner puzzle solver!',
-    'Discover Amazing Features\nExplore a world of captivating puzzles and unlock hidden treasures. Our app is packed with unique and exciting challenges.',
-    'Enjoy Using the App\nImmerse yourself in a seamless and delightful puzzle-solving experience. From novices to experts, everyone can savor the joy of accomplishment.',
-  ];
-
-  final List<String> imagesAssets = [
-    "assets/images/splash1.png",
-    "assets/images/splash2.png",
-    "assets/images/splash3.png"
-  ];
+  const SplashView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +19,12 @@ class SplashView extends GetView<SplashController> {
                 flex: 3,
                 child: PageView.builder(
                   controller: controller.pageController,
-                  itemCount: splashData.length,
+                  itemCount: controller.splashData.length,
                   itemBuilder: (context, index) => SplashContent(
-                    text: splashData[index],
-                    imagePath: imagesAssets[index],
+                    text: controller.splashData[index],
+                    imagePath: controller.imagesAssets[index],
                   ),
+                  onPageChanged: controller.setPage,
                 ),
               ),
               Expanded(
@@ -100,7 +89,7 @@ class SplashContent extends StatelessWidget {
       children: [
         const Spacer(),
         Text(
-          'Puzzle Push Crate',
+          'Puzzle Crate Man',
           style: TextStyle(
             fontSize: 36,
             color: Colors.white,
