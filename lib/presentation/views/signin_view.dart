@@ -4,7 +4,7 @@ import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/signin_controller.dart';
 
 class SignInView extends GetView<SignInController> {
-  SignInView({super.key});
+  const SignInView({super.key});
 
   @override
   Widget build(BuildContext context) {
