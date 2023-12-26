@@ -24,8 +24,44 @@ class SignInController extends GetxController {
 
       if (user != null) {
         Get.offAllNamed("/menu");
+        Get.snackbar(
+          'Success',
+          'Login successful!',
+          backgroundColor:
+              Colors.green, // Customize the background color for success
+          colorText: Colors.white, // Customize the text color
+          duration: Duration(seconds: 3), // Specify the duration
+          snackPosition:
+              SnackPosition.BOTTOM, // Position the snack bar at the bottom
+          margin: EdgeInsets.all(16.0), // Add some margin for better spacing
+          borderRadius: 8.0, // Apply border radius for rounded corners
+          isDismissible:
+              true, // Allow dismissing by tapping outside the snack bar
+          icon: const Icon(Icons.check_circle,
+              color: Colors.white),
+          shouldIconPulse: true, 
+          mainButton: TextButton(
+            onPressed: () {
+              print("test");
+            },
+            child: const Text(
+              'OK',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
       } else {
-        Get.snackbar('Error', 'Email and password is not correct!');
+        Get.snackbar(
+          'Error',
+          'Email and password are not correct!',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 3),
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(16.0),
+          borderRadius: 8.0,
+          isDismissible: true,
+        );
       }
     } finally {
       isLoading.value = false;
@@ -41,7 +77,6 @@ class SignInController extends GetxController {
         print(
             'User signed in with Google: ${userCredential.user?.displayName}');
       } else {
-        // User canceled the sign-in
         print('Google sign-in canceled');
       }
     } finally {
@@ -51,6 +86,6 @@ class SignInController extends GetxController {
 
   Future<void> signOut() async {
     await _authService.signOut();
-    // Additional sign-out logic if needed
+    Get.offAllNamed("/signin");
   }
 }

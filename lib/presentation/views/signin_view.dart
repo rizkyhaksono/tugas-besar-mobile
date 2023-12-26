@@ -3,20 +3,22 @@ import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/signin_controller.dart';
 
-class SignInView extends GetView {
+class SignInView extends GetView<SignInController> {
   SignInView({super.key});
-
-  final SignInController signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Resources.color.primaryBg,
       appBar: AppBar(
-        title: Text(
-          'Sign In',
-          style: TextStyle(
-            color: Colors.white,
+        title: const Center(
+          child: Text(
+            'Let us sign you in!',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 24,
+            ),
           ),
         ),
         backgroundColor: Resources.color.primaryBg,
@@ -29,62 +31,71 @@ class SignInView extends GetView {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
-              controller: signInController.emailController,
+              controller: controller.emailController,
               keyboardType: TextInputType.emailAddress,
-              cursorColor: Resources.color.crateBox,
-              style: TextStyle(color: Resources.color.crateBox),
+              cursorColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 labelText: 'Email',
-                labelStyle:
-                    TextStyle(color: Resources.color.crateBox, fontSize: 18),
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: Resources.font.primaryFont,
+                ),
                 hintText: 'Enter your email',
-                hintStyle:
-                    TextStyle(color: Resources.color.crateBox.withOpacity(0.6)),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Resources.color.crateBox),
+                hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontFamily: Resources.font.primaryFont,
+                  fontSize: 14,
                 ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Resources.color.crateBox),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
                 ),
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: Resources.color.crateBox,
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
                 ),
+                prefixIcon: const Icon(Icons.email, color: Colors.white),
               ),
             ),
             const SizedBox(height: 16),
             Obx(
               () => TextField(
-                controller: signInController.passwordController,
-                obscureText: signInController.obscurePassword.value,
-                cursorColor: Resources.color.crateBox,
-                style: TextStyle(color: Resources.color.crateBox),
+                controller: controller.passwordController,
+                obscureText: controller.obscurePassword.value,
+                cursorColor: Colors.white,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  labelStyle:
-                      TextStyle(color: Resources.color.crateBox, fontSize: 20),
+                  labelStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: Resources.font.primaryFont,
+                  ),
                   hintText: 'Enter your password',
                   hintStyle: TextStyle(
-                      color: Resources.color.crateBox.withOpacity(0.6)),
+                    color: Colors.white.withOpacity(0.6),
+                    fontFamily: Resources.font.primaryFont,
+                    fontSize: 14,
+                  ),
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Resources.color.crateBox),
+                  enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
                   ),
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.lock,
-                    color: Resources.color.crateBox,
+                    color: Colors.white,
                   ),
                   suffixIcon: GestureDetector(
                     onTap: () {
-                      signInController.togglePasswordVisibility();
+                      controller.togglePasswordVisibility();
                     },
                     child: Icon(
-                      signInController.obscurePassword.value
+                      controller.obscurePassword.value
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Resources.color.crateBox,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -95,22 +106,49 @@ class SignInView extends GetView {
               onPressed: () {
                 Get.toNamed("/signup");
               },
-              child: Text(
-                "Don't have account? Sign up here!",
-                style: TextStyle(
-                  color: Colors.white,
+              child: RichText(
+                text: TextSpan(
+                  text: "Don't have an account? ",
+                  style: DefaultTextStyle.of(context).style.copyWith(
+                        color: Colors.white60,
+                        fontSize: 12,
+                        fontFamily: Resources.font.primaryFont,
+                        decoration: TextDecoration.none,
+                      ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Sign up here!',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: signInController.signInWithEmailAndPassword,
-              child: const Text('Sign In'),
+            SizedBox(
+              width: Get.width / 3,
+              child: ElevatedButton(
+                onPressed: controller.signInWithEmailAndPassword,
+                child: Text(
+                  'Sign In',
+                  style: TextStyle(
+                    fontFamily: Resources.font.primaryFont,
+                    color: Resources.color.crateBox,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await signInController.signInWithGoogle();
+                await controller.signInWithGoogle();
               },
               child: SizedBox(
                 width: 40,

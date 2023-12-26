@@ -4,6 +4,6 @@ import 'package:push_puzzle/presentation/controllers/signup_controller.dart';
 class SignUpBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(SignUpController());
+    Get.lazyPut(() => SignUpController());
   }
 }
