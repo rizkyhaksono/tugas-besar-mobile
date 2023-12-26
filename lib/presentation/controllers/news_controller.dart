@@ -34,8 +34,6 @@ class NewsController extends GetxController {
         _news.assignAll(
             List<News>.from(data.map((json) => News.fromJson(json))));
         _hasError.value = false;
-
-        print("Data: $data");
       } else {
         throw Exception('Failed to load data');
       }

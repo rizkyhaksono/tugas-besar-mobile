@@ -8,6 +8,8 @@ class PageName {
   static const dashboard = "/dashboard";
   static const game = "/game";
   static const news = "/news";
+  static const credit = "/credit";
+  static const about = "/about";
 
   static const endGame = "/end_game";
 }

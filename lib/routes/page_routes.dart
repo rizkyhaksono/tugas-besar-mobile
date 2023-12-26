@@ -3,6 +3,8 @@ import 'package:push_puzzle/presentation/bndings/news_binding.dart';
 import 'package:push_puzzle/presentation/bndings/signin_binding.dart';
 import 'package:push_puzzle/presentation/bndings/signup_binding.dart';
 import 'package:push_puzzle/presentation/bndings/splash_binding.dart';
+import 'package:push_puzzle/presentation/views/about_view.dart';
+import 'package:push_puzzle/presentation/views/credit_view.dart';
 import 'package:push_puzzle/presentation/views/main_game_view.dart';
 import 'package:push_puzzle/presentation/views/main_menu_view.dart';
 import 'package:push_puzzle/presentation/views/news_view.dart';
@@ -50,6 +52,18 @@ class PageRoutes {
     GetPage(
       name: PageName.game,
       page: () => MainGameView(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: PageName.credit,
+      page: () => CreditView(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: PageName.about,
+      page: () => AboutView(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     )
