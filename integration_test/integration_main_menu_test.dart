@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/main.dart';
@@ -6,6 +7,10 @@ import '../test/firebase_mock.dart';
 
 void main() {
   setupFirebaseAuthMocks();
+
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
 
   testWidgets('Main menu view test', (WidgetTester tester) async {
     await tester.pumpWidget(const App());
@@ -19,7 +24,6 @@ void main() {
     expect(find.text('News'), findsOneWidget);
     expect(find.text('Exit'), findsOneWidget);
 
-    await tester.tap(find.text('Start Game'));
     await tester.pumpAndSettle();
 
     expect(find.text('Game Screen'), findsOneWidget);
