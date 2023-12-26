@@ -10,6 +10,7 @@ class PageName {
   static const news = "/news";
   static const credit = "/credit";
   static const about = "/about";
+  static const contact = "/contact";
 
   static const endGame = "/end_game";
 }
