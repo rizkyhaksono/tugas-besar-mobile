@@ -51,7 +51,9 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         // minSdkVersion flutter.minSdkVersion
-        minSdkVersion 33
+        // minSdkVersion 33
+        minSdkVersion 19
+        multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -74,4 +76,5 @@ dependencies {
     // implementation 'com.google.firebase:firebase-auth:24.1.0'
     // implementation 'com.google.android.gms:play-services-auth:20.1.0'
     // implementation 'com.google.firebase:firebase-database:23.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
