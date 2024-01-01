@@ -86,36 +86,42 @@ class SplashContent extends StatelessWidget {
     print('Image Path: $imagePath');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Spacer(),
-        Text(
-          'Puzzle Crate Man',
-          style: TextStyle(
-            fontSize: 36,
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontFamily: Resources.font.primaryFont,
+        Expanded(
+          child: Text(
+            'Puzzle Crate Man',
+            style: TextStyle(
+              fontSize: 36,
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontFamily: Resources.font.primaryFont,
+            ),
           ),
         ),
         const SizedBox(height: 20),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-            fontFamily: Resources.font.primaryFont,
+        Expanded(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+              fontFamily: Resources.font.primaryFont,
+            ),
           ),
         ),
         const SizedBox(height: 5),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Image.asset(
-            imagePath,
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.asset(
+              imagePath,
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         const Spacer(),

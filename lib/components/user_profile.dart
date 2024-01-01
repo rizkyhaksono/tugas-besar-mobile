@@ -7,57 +7,66 @@ import 'package:push_puzzle/constants/resources.dart';
 class UserProfile extends StatelessWidget {
   final AuthService _authService = AuthService();
 
-  UserProfile({super.key});
+  UserProfile({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        User? currentUser = await _authService.getCurrentUser();
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return GestureDetector(
+          onTap: () async {
+            User? currentUser = await _authService.getCurrentUser();
 
-        Get.bottomSheet(
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-            child: Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildHeader(currentUser),
-                    const SizedBox(height: 1),
-                    _buildListItem(
-                      Icons.person,
-                      getUserDisplayName(currentUser),
+            Get.bottomSheet(
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                ),
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildHeader(currentUser),
+                        const SizedBox(height: 1),
+                        Flexible(
+                          child: _buildListItem(
+                            Icons.person,
+                            getUserDisplayName(currentUser),
+                          ),
+                        ),
+                        const SizedBox(height: 1),
+                        Flexible(
+                          child: _buildListItem(
+                            Icons.exit_to_app,
+                            'Logout',
+                            textColor: Colors.red,
+                            onTap: () async {
+                              await _authService.signOut();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    _buildListItem(
-                      Icons.exit_to_app,
-                      'Logout',
-                      textColor: Colors.red,
-                      onTap: () async {
-                        await _authService.signOut();
-                      },
-                    ),
-                  ],
+                  ),
                 ),
               ),
+            );
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.account_circle,
+              color: Resources.color.primaryBg,
+              size: orientation == Orientation.portrait ? 28 : 20,
             ),
           ),
         );
       },
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Icon(
-          Icons.account_circle,
-          color: Resources.color.primaryBg,
-          size: 28,
-        ),
-      ),
     );
   }
 

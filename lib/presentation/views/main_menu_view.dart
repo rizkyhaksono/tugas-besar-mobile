@@ -33,60 +33,66 @@ class MainMenuView extends GetView<MenuController> {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: Get.width / 2,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.offNamed("/game");
-                },
-                child: Text(
-                  'Start Game',
-                  style: TextStyle(
-                    color: Resources.color.crateBox,
-                    fontFamily: Resources.font.primaryFont,
-                    fontSize: 18,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(right: 10, left: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: Get.width / 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.offNamed("/game");
+                    },
+                    child: Text(
+                      'Start Game',
+                      style: TextStyle(
+                        color: Resources.color.crateBox,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: Get.width / 2,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed("/news");
-                },
-                child: Text(
-                  'News',
-                  style: TextStyle(
-                    color: Resources.color.crateBox,
-                    fontFamily: Resources.font.primaryFont,
-                    fontSize: 18,
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: Get.width / 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed("/news");
+                    },
+                    child: Text(
+                      'News',
+                      style: TextStyle(
+                        color: Resources.color.crateBox,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: Get.width / 2,
-              child: ElevatedButton(
-                onPressed: () {
-                  _showExitConfirmationDialog();
-                },
-                child: Text(
-                  'Exit',
-                  style: TextStyle(
-                    color: Resources.color.crateBox,
-                    fontFamily: Resources.font.primaryFont,
-                    fontSize: 18,
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: Get.width / 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _showExitConfirmationDialog();
+                    },
+                    child: Text(
+                      'Exit',
+                      style: TextStyle(
+                        color: Resources.color.crateBox,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

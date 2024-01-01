@@ -1,6 +1,6 @@
-# Push Puzzle
+# Push Crate Man
 
-This repo made for Tugas Besar Praktikum Mobile
+This repo made for Tugas Besar Pemrograman and Praktikum Mobile.
 
 ## Overview Game
 
