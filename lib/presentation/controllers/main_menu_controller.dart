@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:push_puzzle/constants/resources.dart';
 
 class MainMenuController extends GetxController {
   late AudioPlayer audioPlayer;
@@ -17,11 +19,6 @@ class MainMenuController extends GetxController {
     audioPlayer.dispose();
     super.onClose();
   }
-
-  // final DatabaseReference _leaderboardRef = FirebaseDatabase.instance
-  //     .ref(
-  //         "https://uap-project-94203-default-rtdb.asia-southeast1.firebasedatabase.app")
-  //     .child('leaderboard');
 
   final DatabaseReference _leaderboardRef = FirebaseDatabase.instanceFor(
     app: Firebase.app(),
@@ -54,6 +51,11 @@ class MainMenuController extends GetxController {
     leaderboard.forEach((username, score) {
       leaderboardText += '$username: $score\n';
     });
-    Get.snackbar('Leaderboard', leaderboardText);
+    Get.snackbar(
+      'Leaderboard',
+      leaderboardText,
+      backgroundColor: Colors.white,
+      colorText: Resources.color.primaryBg,
+    );
   }
 }
