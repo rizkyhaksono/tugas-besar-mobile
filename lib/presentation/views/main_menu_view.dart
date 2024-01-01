@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -66,6 +67,25 @@ class MainMenuView extends GetView<MenuController> {
                     },
                     child: Text(
                       'Leaderboard',
+                      style: TextStyle(
+                        color: Resources.color.crateBox,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: Get.width / 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Get.toNamed("/news");
+                      final player = AudioPlayer();
+                      player.play(AssetSource('assets/game.mp3'));
+                    },
+                    child: Text(
+                      'Play this',
                       style: TextStyle(
                         color: Resources.color.crateBox,
                         fontFamily: Resources.font.primaryFont,

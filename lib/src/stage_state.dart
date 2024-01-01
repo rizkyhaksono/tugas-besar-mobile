@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:push_puzzle/constants/resources.dart';
 
 import '../utils/object_enum.dart';
 import '../utils/stage_master_data.dart';
@@ -28,7 +30,14 @@ class StageState {
       print("game started");
     } else {
       Get.offAllNamed("/menu");
-      print("Finished");
+      Get.snackbar(
+        'Congratulations',
+        "You finished!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        colorText: Resources.color.primaryBg,
+        duration: const Duration(seconds: 3),
+      );
     }
 
     width = dataList.first.length;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -19,8 +20,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Function stateCallbackHandler;
 
   late Timer _timer;
-  int _remainingTimeInSeconds = 180; // 3 minutes
+  int _remainingTimeInSeconds = 300; // 5 minutes
   late TextComponent _timerText;
+  late AudioPlayer _backgroundMusicPlayer;
 
   PushGame pushGame = PushGame();
   late Player _player;
@@ -45,6 +47,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       '.': goalSprite,
     };
 
+    _backgroundMusicPlayer = AudioPlayer();
+    // await _backgroundMusicPlayer.play(AssetSource("assets/music/game.mp3"));
+
     await draw();
     startTimer();
 
@@ -60,7 +65,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   void setCallback(Function fn) => stateCallbackHandler = fn;
 
   void restartGame() {
-    _remainingTimeInSeconds = 180;
+    _remainingTimeInSeconds = 300;
     _timer.cancel();
     startTimer();
     allReset();
@@ -325,6 +330,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void drawNextStage() {
+    _remainingTimeInSeconds = 300;
     pushGame.nextStage();
     stateCallbackHandler(pushGame.state.isClear);
     allReset();
