@@ -2,7 +2,9 @@ import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -15,6 +17,11 @@ import '../../utils/direction.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Function stateCallbackHandler;
+
+  late Timer _timer;
+  // int _remainingTimeInSeconds = 180; // 3 minutes
+  int _remainingTimeInSeconds = 10; // 3 minutes
+  late TextComponent _timerText;
 
   PushGame pushGame = PushGame();
   late Player _player;
@@ -40,9 +47,51 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     };
 
     await draw();
+    startTimer();
+
+    _timerText = TextComponent(
+      text: 'Time: $_remainingTimeInSeconds',
+    )
+      ..anchor = Anchor.topLeft
+      ..x = 10
+      ..y = 10;
+    add(_timerText);
   }
 
   void setCallback(Function fn) => stateCallbackHandler = fn;
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTimeInSeconds > 0) {
+        _remainingTimeInSeconds--;
+        _timerText.text = 'Time: $_remainingTimeInSeconds';
+      } else {
+        _timer.cancel();
+        handleGameOver();
+      }
+    });
+  }
+
+  void handleGameOver() {
+    AlertDialog(
+      title: const Text("Game Over"),
+      content: const Text("Time's up!"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.offAllNamed("/menu");
+          },
+          child: const Text("Main Menu"),
+        ),
+        TextButton(
+          onPressed: () {
+            Get.offAllNamed("/game");
+          },
+          child: const Text("Try Again"),
+        ),
+      ],
+    );
+  }
 
   Future<void> draw() async {
     for (var y = 0; y < pushGame.state.splitStageStateList.length; y++) {
@@ -182,9 +231,27 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void drawNextStage() {
+    // _remainingTimeInSeconds = 180;
+    _remainingTimeInSeconds = 10;
     pushGame.nextStage();
     stateCallbackHandler(pushGame.state.isClear);
     allReset();
     draw();
+  }
+
+  void movePlayer(Direction direction) {
+    if (_player.moveCount == 0 && !pushGame.state.isClear) {
+      bool isMove = pushGame.changeState(direction.name);
+      if (isMove) {
+        playerMove(true, direction);
+        if (pushGame.state.isCrateMove) {
+          createMove();
+        }
+        if (pushGame.state.isClear) {
+          stateCallbackHandler(pushGame.state.isClear);
+          Timer(const Duration(seconds: 3), drawNextStage);
+        }
+      }
+    }
   }
 }

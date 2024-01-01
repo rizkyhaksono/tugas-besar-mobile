@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:push_puzzle/presentation/bndings/news_binding.dart';
-import 'package:push_puzzle/presentation/bndings/signin_binding.dart';
-import 'package:push_puzzle/presentation/bndings/signup_binding.dart';
-import 'package:push_puzzle/presentation/bndings/splash_binding.dart';
+import 'package:push_puzzle/presentation/bindings/news_binding.dart';
+import 'package:push_puzzle/presentation/bindings/signin_binding.dart';
+import 'package:push_puzzle/presentation/bindings/signup_binding.dart';
+import 'package:push_puzzle/presentation/bindings/splash_binding.dart';
 import 'package:push_puzzle/presentation/views/about_view.dart';
 import 'package:push_puzzle/presentation/views/contact_view.dart';
 import 'package:push_puzzle/presentation/views/credit_view.dart';

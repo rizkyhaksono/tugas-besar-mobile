@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
+import 'package:push_puzzle/utils/direction.dart';
 
 import 'game.dart';
 
@@ -26,6 +27,7 @@ class MainGameViewState extends State<MainGameView> {
         GameWidget(game: game),
         Congratulations(isClear: _isClear),
         buildPauseButton(),
+        buildNavigationButtons(),
       ],
     ));
   }
@@ -58,25 +60,80 @@ class MainGameViewState extends State<MainGameView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Game Paused'),
-          content: Text('Do you want to resume the game?'),
+          title: const Text('Game Paused'),
+          content: const Text('Do you want to resume the game?'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Resume'),
+              child: const Text('Resume'),
             ),
             TextButton(
               onPressed: () {
                 Get.offAllNamed("/menu");
               },
-              child: Text('Main Menu'),
+              child: const Text('Main Menu'),
             ),
           ],
         );
       },
     );
+  }
+
+  Widget buildNavigationButtons() {
+    return Positioned(
+      bottom: 20,
+      left: 20,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _movePlayer(Direction.up);
+                },
+                child: const Icon(Icons.arrow_upward),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _movePlayer(Direction.left);
+                },
+                child: const Icon(Icons.arrow_back),
+              ),
+              const SizedBox(width: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _movePlayer(Direction.right);
+                },
+                child: const Icon(Icons.arrow_forward),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _movePlayer(Direction.down);
+                },
+                child: const Icon(Icons.arrow_downward),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _movePlayer(Direction direction) {
+    game.movePlayer(direction);
   }
 }
 
