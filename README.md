@@ -52,3 +52,7 @@ The stage is cleared by moving the character and carrying the luggage to the goa
 | Left   | LogicalKeyboardKey keyA |   Left    |
 | right  | LogicalKeyboardKey keyD |   right   |
 | Down   | LogicalKeyboardKey keyS |   Down    |
+
+## License
+
+[MIT LICENSE](./LICENSE)
