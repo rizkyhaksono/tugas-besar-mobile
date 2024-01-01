@@ -1,13 +1,21 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:push_puzzle/constants/auth_service.dart';
 import 'package:push_puzzle/constants/resources.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfile extends StatelessWidget {
+class UserProfile extends GetView {
   final AuthService _authService = AuthService();
+  File? pickedFile;
+  final ImagePicker imagePicker = ImagePicker();
+  final RxString imagePath = "".obs;
 
-  UserProfile({Key? key});
+  UserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,46 +31,52 @@ class UserProfile extends StatelessWidget {
                   topLeft: Radius.circular(16.0),
                   topRight: Radius.circular(16.0),
                 ),
-                child: Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildHeader(currentUser),
-                        const SizedBox(height: 1),
-                        Flexible(
-                          child: _buildListItem(
-                            Icons.person,
-                            getUserDisplayName(currentUser),
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: _buildHeader(currentUser),
                           ),
-                        ),
-                        const SizedBox(height: 1),
-                        Flexible(
-                          child: _buildListItem(
-                            Icons.exit_to_app,
-                            'Logout',
-                            textColor: Colors.red,
-                            onTap: () async {
-                              await _authService.signOut();
-                            },
+                          Flexible(
+                            child: _buildListItem(
+                              Icons.person,
+                              getUserDisplayName(currentUser),
+                            ),
                           ),
-                        ),
-                      ],
+                          Flexible(
+                            child: _buildListItem(
+                              Icons.exit_to_app,
+                              'Logout',
+                              textColor: Colors.red,
+                              onTap: () async {
+                                bool? confirmSignOut =
+                                    await showSignOutConfirmationDialog(
+                                        context);
+
+                                if (confirmSignOut != null && confirmSignOut) {
+                                  await _authService.signOut();
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             );
           },
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(
-              Icons.account_circle,
-              color: Resources.color.primaryBg,
-              size: orientation == Orientation.portrait ? 28 : 20,
+          child: Obx(
+            () => CircleAvatar(
+              // backgroundImage: _getProfileImage(null),
+              radius: 40,
             ),
           ),
         );
@@ -73,16 +87,16 @@ class UserProfile extends StatelessWidget {
   Widget _buildHeader(User? currentUser) {
     return Column(
       children: [
-        CircleAvatar(
-          backgroundColor: Resources.color.primaryBg,
-          radius: 40,
-          child: const Icon(
-            Icons.account_circle,
-            color: Colors.white,
-            size: 56,
-          ),
+        GestureDetector(
+          onTap: () async {
+            await _changeProfileImage();
+          },
+          child: Obx(() => CircleAvatar(
+                // backgroundImage: _getProfileImage(currentUser),
+                radius: 40,
+              )),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         Text(
           'Hello, ${getUserDisplayName(currentUser)}!',
           style: TextStyle(
@@ -128,5 +142,97 @@ class UserProfile extends StatelessWidget {
       }
     }
     return 'N/A';
+  }
+
+  Future<bool?> showSignOutConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Sign Out'),
+          content: const Text('Are you sure you want to sign out?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Sign Out'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _changeProfileImage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final pickedImage = await imagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 100);
+
+    if (pickedImage == null) {
+      return;
+    } else {
+      final Directory appDirectory = await getApplicationCacheDirectory();
+      final String fileName = 'profile_image.png';
+      final String newPath = '${appDirectory.path}/$fileName';
+
+      // Save the new image path in SharedPreferences
+      prefs.setString('profile_image', newPath);
+
+      // Update the reactive state to trigger a rebuild
+      imagePath.value = newPath;
+
+      Get.back();
+      Get.snackbar(
+        "Image Pick Successfully",
+        "You successfully changed the image",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<FileImage> _getProfileImage([User? currentUser]) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imageResult = imagePath.value;
+
+    if (imageResult == null) {
+      return Future.error(Exception('Image not found'));
+    }
+
+    final Directory appDirectory = await getApplicationCacheDirectory();
+    final String fileName = 'profile_image.png';
+    final String newPath = '${appDirectory.path}/$fileName';
+
+    prefs.setString('profile_image', newPath);
+
+    imagePath.value = newPath;
+
+    return FileImage(File(newPath));
+  }
+
+  Future<void> takePhoto(ImagePicker picker, String? currentImagePath) async {
+    final pickedImage =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 100);
+
+    if (pickedImage == null) {
+      return;
+    } else {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final Directory appDirectory = await getApplicationCacheDirectory();
+      final String fileName = 'profile_image.png';
+      final String newPath = '${appDirectory.path}/$fileName';
+
+      prefs.setString('profile_image', newPath);
+
+      Get.snackbar(
+        "Image Pick Successfully",
+        "You successfully changed the image",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    }
   }
 }

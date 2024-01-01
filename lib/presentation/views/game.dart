@@ -4,7 +4,6 @@ import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -67,30 +66,8 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
         _timerText.text = 'Time: $_remainingTimeInSeconds';
       } else {
         _timer.cancel();
-        handleGameOver();
       }
     });
-  }
-
-  void handleGameOver() {
-    AlertDialog(
-      title: const Text("Game Over"),
-      content: const Text("Time's up!"),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Get.offAllNamed("/menu");
-          },
-          child: const Text("Main Menu"),
-        ),
-        TextButton(
-          onPressed: () {
-            Get.offAllNamed("/game");
-          },
-          child: const Text("Try Again"),
-        ),
-      ],
-    );
   }
 
   Future<void> draw() async {
