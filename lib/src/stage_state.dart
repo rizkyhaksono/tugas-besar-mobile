@@ -27,8 +27,8 @@ class StageState {
       dataList = LineSplitter.split(stageMasterDataList[stage - 1]).toList();
       print("game started");
     } else {
-      Get.offAllNamed("/signin");
-      print("game over");
+      Get.offAllNamed("/menu");
+      print("Finished");
     }
 
     width = dataList.first.length;
@@ -71,8 +71,6 @@ class StageState {
   bool isSpaceOrGoal(int targetPosition) =>
       objectList[targetPosition] == Object.space ||
       objectList[targetPosition] == Object.goal;
-
-  // bool get isClear => objectList.indexWhere((obj) => obj == Object.crate) == -1;
 
   bool get isClear {
     for (var crateIndex in crateIndexList) {

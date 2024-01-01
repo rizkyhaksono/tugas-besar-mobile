@@ -1,7 +1,6 @@
 import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -134,6 +133,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
                                       ),
                                     ),
                                     onPressed: () {
+                                      _timer.cancel();
                                       Get.offNamed("/menu");
                                     },
                                     child: Text(
@@ -325,11 +325,21 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void drawNextStage() {
-    _remainingTimeInSeconds = 180;
     pushGame.nextStage();
     stateCallbackHandler(pushGame.state.isClear);
     allReset();
     draw();
+
+    _timer.cancel();
+    startTimer();
+
+    _timerText = TextComponent(
+      text: 'Time: $_remainingTimeInSeconds',
+    )
+      ..anchor = Anchor.topLeft
+      ..x = 10
+      ..y = 10;
+    add(_timerText);
   }
 
   void movePlayer(Direction direction) {
