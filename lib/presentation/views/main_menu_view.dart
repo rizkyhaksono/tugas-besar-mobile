@@ -1,13 +1,14 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/src/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/components/dot_menu.dart';
 import 'package:push_puzzle/components/user_profile.dart';
 import 'package:push_puzzle/constants/resources.dart';
+import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
 
-class MainMenuView extends GetView<MenuController> {
-  const MainMenuView({super.key});
+class MainMenuView extends GetView<MainMenuController> {
+  MainMenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +63,7 @@ class MainMenuView extends GetView<MenuController> {
                   width: Get.width / 2,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Get.toNamed("/news");
-                      print("leaderboard");
+                      controller.showLeaderboard();
                     },
                     child: Text(
                       'Leaderboard',
@@ -79,10 +79,9 @@ class MainMenuView extends GetView<MenuController> {
                 SizedBox(
                   width: Get.width / 2,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Get.toNamed("/news");
-                      final player = AudioPlayer();
-                      player.play(AssetSource('assets/game.mp3'));
+                    onPressed: () async {
+                      await controller.audioPlayer
+                          .play(AssetSource("audio/game.mp3"));
                     },
                     child: Text(
                       'Play this',

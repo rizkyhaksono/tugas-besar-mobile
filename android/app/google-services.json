@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "46223375187",
+    "firebase_url": "https://uap-project-94203-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "uap-project-94203",
     "storage_bucket": "uap-project-94203.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "46223375187-2lbka44nd4ao7at4vidchkjiacn09jgd.apps.googleusercontent.com",
+          "client_id": "46223375187-0v40cbdk430hkba3kqr4n9heofnjebat.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.push_puzzle",
-            "certificate_hash": "d174aa61f94b96e0a18fc3392618478b93359cd9"
+            "certificate_hash": "1204fec81dd1e973e28da1bf9d387cf2f4cea484"
           }
         },
         {

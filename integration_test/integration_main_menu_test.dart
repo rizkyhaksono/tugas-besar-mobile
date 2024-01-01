@@ -15,7 +15,7 @@ void main() {
   testWidgets('Main menu view test', (WidgetTester tester) async {
     await tester.pumpWidget(const App());
 
-    Get.to(const MainMenuView());
+    Get.to(MainMenuView());
 
     await tester.pumpAndSettle();
 

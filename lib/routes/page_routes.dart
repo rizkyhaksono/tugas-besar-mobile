@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:push_puzzle/presentation/bindings/main_menu_binding.dart';
 import 'package:push_puzzle/presentation/bindings/news_binding.dart';
 import 'package:push_puzzle/presentation/bindings/signin_binding.dart';
 import 'package:push_puzzle/presentation/bindings/signup_binding.dart';
@@ -40,6 +41,7 @@ class PageRoutes {
     GetPage(
       name: PageName.menu,
       page: () => MainMenuView(),
+      binding: MainMenuBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
