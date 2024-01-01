@@ -4,6 +4,8 @@ import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:push_puzzle/constants/resources.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -18,8 +20,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Function stateCallbackHandler;
 
   late Timer _timer;
-  // int _remainingTimeInSeconds = 180; // 3 minutes
-  int _remainingTimeInSeconds = 10; // 3 minutes
+  int _remainingTimeInSeconds = 180; // 3 minutes
   late TextComponent _timerText;
 
   PushGame pushGame = PushGame();
@@ -59,15 +60,131 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
   void setCallback(Function fn) => stateCallbackHandler = fn;
 
+  void restartGame() {
+    _remainingTimeInSeconds = 180;
+    _timer.cancel();
+    startTimer();
+    allReset();
+    draw();
+
+    _timerText = TextComponent(
+      text: 'Time: $_remainingTimeInSeconds',
+    )
+      ..anchor = Anchor.topLeft
+      ..x = 10
+      ..y = 10;
+    add(_timerText);
+  }
+
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingTimeInSeconds > 0) {
-        _remainingTimeInSeconds--;
-        _timerText.text = 'Time: $_remainingTimeInSeconds';
-      } else {
-        _timer.cancel();
-      }
-    });
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        if (_remainingTimeInSeconds > 0) {
+          _remainingTimeInSeconds--;
+          _timerText.text = 'Time: $_remainingTimeInSeconds';
+        } else {
+          _timer.cancel();
+          Get.dialog(
+            barrierDismissible: true,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Material(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              "Game Over",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: Resources.font.primaryFont,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            const Text(
+                              "Wanna start again?",
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(0, 45),
+                                      backgroundColor:
+                                          Resources.color.primaryBg,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Get.offNamed("/menu");
+                                    },
+                                    child: Text(
+                                      'NO',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: Resources.font.primaryFont,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(0, 45),
+                                      backgroundColor:
+                                          Resources.color.primaryBg,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      restartGame();
+                                      Get.back();
+                                    },
+                                    child: Text(
+                                      'YES',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: Resources.font.primaryFont,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<void> draw() async {
@@ -208,8 +325,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void drawNextStage() {
-    // _remainingTimeInSeconds = 180;
-    _remainingTimeInSeconds = 10;
+    _remainingTimeInSeconds = 180;
     pushGame.nextStage();
     stateCallbackHandler(pushGame.state.isClear);
     allReset();

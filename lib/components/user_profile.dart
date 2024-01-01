@@ -73,12 +73,7 @@ class UserProfile extends GetView {
               ),
             );
           },
-          child: Obx(
-            () => CircleAvatar(
-              // backgroundImage: _getProfileImage(null),
-              radius: 40,
-            ),
-          ),
+          child: _buildCircleAvatar(),
         );
       },
     );
@@ -89,12 +84,14 @@ class UserProfile extends GetView {
       children: [
         GestureDetector(
           onTap: () async {
+            // Handle click on CircleAvatar
             await _changeProfileImage();
+            // setState(() {}); // Trigger a rebuild after changing the image
           },
-          child: Obx(() => CircleAvatar(
-                // backgroundImage: _getProfileImage(currentUser),
-                radius: 40,
-              )),
+          child: CircleAvatar(
+            // backgroundImage: _getProfileImage(currentUser),
+            radius: 40,
+          ),
         ),
         const SizedBox(height: 10),
         Text(
@@ -194,23 +191,10 @@ class UserProfile extends GetView {
     }
   }
 
-  Future<FileImage> _getProfileImage([User? currentUser]) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? imageResult = imagePath.value;
-
-    if (imageResult == null) {
-      return Future.error(Exception('Image not found'));
-    }
-
-    final Directory appDirectory = await getApplicationCacheDirectory();
-    final String fileName = 'profile_image.png';
-    final String newPath = '${appDirectory.path}/$fileName';
-
-    prefs.setString('profile_image', newPath);
-
-    imagePath.value = newPath;
-
-    return FileImage(File(newPath));
+  Widget _buildCircleAvatar() {
+    return CircleAvatar(
+      backgroundImage: const AssetImage("assets/images/profile-default.png"),
+    );
   }
 
   Future<void> takePhoto(ImagePicker picker, String? currentImagePath) async {

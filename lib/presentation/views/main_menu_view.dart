@@ -61,6 +61,24 @@ class MainMenuView extends GetView<MenuController> {
                   width: Get.width / 2,
                   child: ElevatedButton(
                     onPressed: () {
+                      // Get.toNamed("/news");
+                      print("leaderboard");
+                    },
+                    child: Text(
+                      'Leaderboard',
+                      style: TextStyle(
+                        color: Resources.color.crateBox,
+                        fontFamily: Resources.font.primaryFont,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: Get.width / 2,
+                  child: ElevatedButton(
+                    onPressed: () {
                       Get.toNamed("/news");
                     },
                     child: Text(
