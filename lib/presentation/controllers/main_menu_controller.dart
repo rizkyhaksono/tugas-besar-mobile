@@ -1,22 +1,19 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:push_puzzle/constants/resources.dart';
 
 class MainMenuController extends GetxController {
-  late AudioPlayer audioPlayer;
+  RxMap<String, dynamic> leaderboard = <String, dynamic>{}.obs;
+  late int remainingTimeInSeconds = 300;
 
   @override
   void onInit() {
     super.onInit();
-    audioPlayer = AudioPlayer();
   }
 
   @override
   void onClose() {
-    audioPlayer.dispose();
     super.onClose();
   }
 
@@ -40,22 +37,39 @@ class MainMenuController extends GetxController {
   }
 
   void showLeaderboard() async {
-    Map<String, dynamic> leaderboard = await fetchLeaderboard();
+    leaderboard.value = await fetchLeaderboard();
 
-    print('Leaderboard:');
     leaderboard.forEach((username, score) {
       print('$username: $score');
     });
+  }
 
-    String leaderboardText = 'Leaderboard:\n';
-    leaderboard.forEach((username, score) {
-      leaderboardText += '$username: $score\n';
-    });
-    Get.snackbar(
-      'Leaderboard',
-      leaderboardText,
-      backgroundColor: Colors.white,
-      colorText: Resources.color.primaryBg,
-    );
+  int calculateScore(int timeTakenInSeconds) {
+    const int maxScore = 100;
+    const int maxTimeInSeconds = 300;
+
+    int adjustedTime = timeTakenInSeconds > maxTimeInSeconds
+        ? maxTimeInSeconds
+        : timeTakenInSeconds;
+
+    double percentage = adjustedTime / maxTimeInSeconds;
+    int calculatedScore = (percentage * maxScore).round();
+
+    return calculatedScore;
+  }
+
+  Future<void> inputLeaderboard(score) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      await updateLeaderboard(
+          currentUser.displayName ?? currentUser.uid, score);
+
+      leaderboard.value = await fetchLeaderboard();
+
+      print('Data pushed to leaderboard successfully.');
+    } else {
+      print('User not authenticated.');
+    }
   }
 }

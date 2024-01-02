@@ -7,6 +7,7 @@ import 'package:push_puzzle/presentation/bindings/splash_binding.dart';
 import 'package:push_puzzle/presentation/views/about_view.dart';
 import 'package:push_puzzle/presentation/views/contact_view.dart';
 import 'package:push_puzzle/presentation/views/credit_view.dart';
+import 'package:push_puzzle/presentation/views/leaderboard_view.dart';
 import 'package:push_puzzle/presentation/views/main_game_view.dart';
 import 'package:push_puzzle/presentation/views/main_menu_view.dart';
 import 'package:push_puzzle/presentation/views/news_view.dart';
@@ -73,6 +74,13 @@ class PageRoutes {
     GetPage(
       name: PageName.contact,
       page: () => ContactView(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: PageName.leaderboard,
+      page: () => LeaderboardView(),
+      binding: MainMenuBinding(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     )

@@ -1,11 +1,12 @@
 import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame/src/effects/provider_interfaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -17,12 +18,12 @@ import '../../utils/config.dart';
 import '../../utils/direction.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
+  MainMenuController controller = MainMenuController();
   late Function stateCallbackHandler;
 
   late Timer _timer;
-  int _remainingTimeInSeconds = 300; // 5 minutes
+
   late TextComponent _timerText;
-  late AudioPlayer _backgroundMusicPlayer;
 
   PushGame pushGame = PushGame();
   late Player _player;
@@ -47,14 +48,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       '.': goalSprite,
     };
 
-    _backgroundMusicPlayer = AudioPlayer();
-    // await _backgroundMusicPlayer.play(AssetSource("assets/music/game.mp3"));
+    camera = CameraComponent();
 
     await draw();
     startTimer();
 
     _timerText = TextComponent(
-      text: 'Time: $_remainingTimeInSeconds',
+      text: 'Time: ${controller.remainingTimeInSeconds}',
     )
       ..anchor = Anchor.topLeft
       ..x = 10
@@ -65,14 +65,14 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   void setCallback(Function fn) => stateCallbackHandler = fn;
 
   void restartGame() {
-    _remainingTimeInSeconds = 300;
+    controller.remainingTimeInSeconds = 300;
     _timer.cancel();
     startTimer();
     allReset();
     draw();
 
     _timerText = TextComponent(
-      text: 'Time: $_remainingTimeInSeconds',
+      text: 'Time: ${controller.remainingTimeInSeconds}',
     )
       ..anchor = Anchor.topLeft
       ..x = 10
@@ -84,9 +84,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        if (_remainingTimeInSeconds > 0) {
-          _remainingTimeInSeconds--;
-          _timerText.text = 'Time: $_remainingTimeInSeconds';
+        if (controller.remainingTimeInSeconds > 0) {
+          controller.remainingTimeInSeconds--;
+          _timerText.text = 'Time: ${controller.remainingTimeInSeconds}';
         } else {
           _timer.cancel();
           Get.dialog(
@@ -139,7 +139,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
                                     ),
                                     onPressed: () {
                                       _timer.cancel();
-                                      Get.offNamed("/menu");
+                                      Get.back();
                                     },
                                     child: Text(
                                       'NO',
@@ -215,10 +215,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     }
 
     if (pushGame.state.width > playerCameraWallWidth) {
-      camera.followComponent(_player);
+      camera.follow(_player);
     } else {
-      camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2,
-          pushGame.state.height * oneBlockSize / 2));
+      final targetPosition = Vector2(
+        pushGame.state.width * oneBlockSize / 2,
+        pushGame.state.height * oneBlockSize / 2,
+      );
+      camera.follow(Vector2PositionProvider(targetPosition));
     }
   }
 
@@ -330,7 +333,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   void drawNextStage() {
-    _remainingTimeInSeconds = 300;
+    controller.remainingTimeInSeconds = 300;
     pushGame.nextStage();
     stateCallbackHandler(pushGame.state.isClear);
     allReset();
@@ -340,7 +343,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     startTimer();
 
     _timerText = TextComponent(
-      text: 'Time: $_remainingTimeInSeconds',
+      text: 'Time: ${controller.remainingTimeInSeconds}',
     )
       ..anchor = Anchor.topLeft
       ..x = 10
@@ -363,4 +366,15 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       }
     }
   }
+}
+
+class Vector2PositionProvider implements ReadOnlyPositionProvider {
+  final Vector2 _position;
+
+  Vector2PositionProvider(this._position);
+
+  Vector2 getPosition() => _position;
+
+  @override
+  Vector2 get position => _position;
 }

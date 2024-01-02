@@ -1,4 +1,3 @@
-import 'package:audioplayers/src/source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -63,7 +62,8 @@ class MainMenuView extends GetView<MainMenuController> {
                   width: Get.width / 2,
                   child: ElevatedButton(
                     onPressed: () {
-                      controller.showLeaderboard();
+                      // controller.showLeaderboard();
+                      Get.toNamed("/leaderboard");
                     },
                     child: Text(
                       'Leaderboard',
@@ -80,8 +80,7 @@ class MainMenuView extends GetView<MainMenuController> {
                   width: Get.width / 2,
                   child: ElevatedButton(
                     onPressed: () async {
-                      await controller.audioPlayer
-                          .play(AssetSource("audio/game.mp3"));
+                      print("hai");
                     },
                     child: Text(
                       'Play this',

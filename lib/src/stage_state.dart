@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
+import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
 
 import '../utils/object_enum.dart';
 import '../utils/stage_master_data.dart';
@@ -15,6 +16,8 @@ class StageState {
   late List<String> dataList;
   late List<Object> objectList = initStageState;
 
+  late MainMenuController controller = MainMenuController();
+
   bool _isCrateMove = false;
   late Vector2 crateMoveBeforeVec;
   late Vector2 crateMoveAfterVec;
@@ -24,7 +27,7 @@ class StageState {
     changeStage(stage);
   }
 
-  void changeStage(int stage) {
+  void changeStage(int stage) async {
     if (stage - 1 < stageMasterDataList.length) {
       dataList = LineSplitter.split(stageMasterDataList[stage - 1]).toList();
       print("game started");
@@ -44,6 +47,10 @@ class StageState {
     height = dataList.length;
     objectList = initStageState;
     goalVecList = _goalVecList;
+
+    int calculatedScore = controller.calculateScore(300);
+
+    await controller.inputLeaderboard(calculatedScore);
   }
 
   List<Object> get initStageState {
