@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:get/get.dart';
@@ -70,8 +71,9 @@ class MainGameViewState extends State<MainGameView> {
               child: const Text('Resume'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Get.offAllNamed("/menu");
+                await FlameAudio.bgm.stop();
               },
               child: const Text('Main Menu'),
             ),

@@ -1,15 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:push_puzzle/utils/sound_local.dart';
 
 class MainMenuController extends GetxController {
   RxMap<String, dynamic> leaderboard = <String, dynamic>{}.obs;
   late int remainingTimeInSeconds = 300;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await FlameAudio.play(SoundLocal.main_menu, volume: 1.0);
   }
 
   @override

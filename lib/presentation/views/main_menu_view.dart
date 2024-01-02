@@ -79,23 +79,6 @@ class MainMenuView extends GetView<MainMenuController> {
                 SizedBox(
                   width: Get.width / 2,
                   child: ElevatedButton(
-                    onPressed: () async {
-                      print("hai");
-                    },
-                    child: Text(
-                      'Play this',
-                      style: TextStyle(
-                        color: Resources.color.crateBox,
-                        fontFamily: Resources.font.primaryFont,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: Get.width / 2,
-                  child: ElevatedButton(
                     onPressed: () {
                       Get.toNamed("/news");
                     },

@@ -2,11 +2,13 @@ import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/src/effects/provider_interfaces.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
+import 'package:push_puzzle/utils/sound_local.dart';
 
 import '../../components/player.dart';
 import '../../components/crate.dart';
@@ -137,9 +139,10 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       _timer.cancel();
                                       Get.back();
+                                      await FlameAudio.bgm.stop();
                                     },
                                     child: Text(
                                       'NO',
