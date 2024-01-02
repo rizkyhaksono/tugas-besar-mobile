@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:push_puzzle/components/dot_menu.dart';
 import 'package:push_puzzle/components/user_profile.dart';
 import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
+import 'package:push_puzzle/utils/sound_local.dart';
 
 class MainMenuView extends GetView<MainMenuController> {
   const MainMenuView({super.key});
@@ -44,8 +46,9 @@ class MainMenuView extends GetView<MainMenuController> {
                 SizedBox(
                   width: Get.width / 2,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Get.offNamed("/game");
+                      await FlameAudio.play(SoundLocal.game, volume: 1.0);
                     },
                     child: Text(
                       'Start Game',
