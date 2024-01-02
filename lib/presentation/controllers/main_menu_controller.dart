@@ -15,11 +15,6 @@ class MainMenuController extends GetxController {
     await FlameAudio.play(SoundLocal.main_menu, volume: 1.0);
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   final DatabaseReference _leaderboardRef = FirebaseDatabase.instanceFor(
     app: Firebase.app(),
     databaseURL:

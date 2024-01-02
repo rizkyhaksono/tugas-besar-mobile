@@ -1,6 +1,8 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:push_puzzle/constants/auth_service.dart';
+import 'package:push_puzzle/utils/sound_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInController extends GetxController {
@@ -38,6 +40,7 @@ class SignInController extends GetxController {
       if (user != null) {
         _preferences.setBool('isLoggedIn', true);
         Get.offAllNamed("/menu");
+        await FlameAudio.play(SoundLocal.main_menu, volume: 1.0);
         Get.snackbar(
           'Success',
           'Login successful!',
@@ -83,6 +86,7 @@ class SignInController extends GetxController {
     try {
       isLoading.value = true;
       final userCredential = await _authService.signInWithGoogle();
+      await FlameAudio.play(SoundLocal.main_menu, volume: 1.0);
       if (userCredential != null) {
         Get.offAllNamed("/menu");
         print(

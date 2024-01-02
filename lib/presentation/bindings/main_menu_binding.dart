@@ -5,5 +5,6 @@ class MainMenuBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => MainMenuController());
+    Get.put(() => MainMenuController());
   }
 }

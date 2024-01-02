@@ -7,7 +7,7 @@ import 'package:push_puzzle/constants/resources.dart';
 import 'package:push_puzzle/presentation/controllers/main_menu_controller.dart';
 
 class MainMenuView extends GetView<MainMenuController> {
-  MainMenuView({super.key});
+  const MainMenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,6 @@ class MainMenuView extends GetView<MainMenuController> {
                   width: Get.width / 2,
                   child: ElevatedButton(
                     onPressed: () {
-                      // controller.showLeaderboard();
                       Get.toNamed("/leaderboard");
                     },
                     child: Text(
